@@ -23,3 +23,56 @@ export const sendVerificationEmail = async (email,verificationToken) =>
         throw new Error(`Error sending verification email : ${error}`)
     }
 }
+
+
+export const sendWelcomeEmail= async (email,name)=>{
+    const recipient = [{email}];
+    try{
+        const response = await  mailtrapClient.send({
+            from:sender,
+            to:recipient,
+            template_uuid:"9ebd9b0f-a07f-44cc-abd8-e74b5bab078a",
+            template_variables:{
+                name:name,
+            },
+        })
+        console.log("Email sent successfully ", response);
+
+    }catch(error){
+        console.error(`Error sending email `,error);
+        throw new Error(`Error sending welcome email: ${error}`)
+    }
+   
+
+}
+
+/*
+ const { MailtrapClient } = require("mailtrap");
+
+const TOKEN = "****878a";
+
+const client = new MailtrapClient({
+  token: TOKEN,
+});
+
+const sender = {
+  email: "hello@demomailtrap.co",
+  name: "Mailtrap Test",
+};
+const recipients = [
+  {
+    email: "naveenkarthik26042005@gmail.com",
+  }
+];
+
+client
+  .send({
+    from: sender,
+    to: recipients,
+    template_uuid: "9ebd9b0f-a07f-44cc-abd8-e74b5bab078a",
+    template_variables: {
+      "name": "Test_Name"
+    }
+  })
+  .then(console.log, console.error);
+*/
